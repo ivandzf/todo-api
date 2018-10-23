@@ -12,9 +12,6 @@ const User = sequelize.define(
     },
     order: {
       type: Sequelize.INTEGER
-    },
-    indent: {
-      type: Sequelize.INTEGER
     }
   },
   {

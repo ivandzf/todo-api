@@ -29,12 +29,6 @@ exports.save = (req, res) => {
       message: "Order cannot be empty"
     });
   }
-  if (!req.body.indent) {
-    badRequest.push({
-      column: "Indent",
-      message: "Indent cannot be empty"
-    });
-  }
 
   if (badRequest.length > 0) {
     return res.status(400).send(badRequest);
@@ -45,8 +39,7 @@ exports.save = (req, res) => {
       {
         id: uuid(),
         name: req.body.name,
-        order: req.body.order,
-        indent: req.body.indent
+        order: req.body.order
       },
       { transaction: t }
     )
