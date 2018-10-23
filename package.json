@@ -4,7 +4,8 @@
   "description": "todo rest api",
   "main": "index.js",
   "scripts": {
-    "test": "nyc --reporter=html --reporter=text mocha ./src/test/ --timeout 1200000 --exit"
+    "test": "nyc --reporter=html --reporter=text mocha ./src/test/ --timeout 1200000 --exit",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
