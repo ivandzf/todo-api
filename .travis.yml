@@ -1,2 +1,9 @@
 language: node_js
-node_js: "9"
+node_js: '9'
+deploy:
+  provider: heroku
+  api_key:
+    secure: B9+Mh83CRFXJR3mkRh9TgMUv8PepJzZiWzDRtpmX79UGsepw52SIlJGsxSrpDDTXYxYPxNrxLCJAnR663NV5KtJJIJ2ntFOSdRl2zulXyBlj0K8NHJ7ZithXuUNnNruRNUA0UZEQyAZNnVatT7YhcmBC4I14u45mtvCV6DFzkEmFKUQe+rv9u49RXaL1Igon6u/AXMd+gum+PK1dPYwo6/eZb3ojw6WT1h3a9+TQ6tinLc7qUCzupub1CW0GBKkk745OQS/oWSyMOiFLoWOvG7G4T9F/h8h3fcJuIzATrhPZXhPQB65nN7T/tApxYRaquQKzZebcPleTehQh0hu9vQCkw9Z6E0tjkGA189CcAN3FAKSLRXKZ82Fu+Oh8qdPlh4QMU+UYEwrBRrFiiujYYAc/BZvJVl5ZhsVICtIHzYciqo4jamojGu+knpDfD1UirHDFbpI4tqL2pHShpxAID/KX6VeLlmUuxKGJKc1dipFfyDjGuQKI5CconsFJqxJDcfxyB/ujPaOAMMKmlEq72wEtvMY4bwzkl5mVfOmdUzSzjG9wQcaeCGfIHm6BD1VyL190s56sUT+MNHcitQTaAGFub+NV0DbiciH1WiXDJkmbSoWrIJtEyniOeUmAd86JSMnAdeyx+EPPHt/JqAngGjncUJPJVWRBagvIN+ZtHIk=
+  app: todo-node-express
+  on:
+    repo: ivandzf/todo-api
