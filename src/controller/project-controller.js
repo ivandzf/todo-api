@@ -1,56 +1,72 @@
-const sequelize = require("../config/database");
-const UserModel = require("../models/project-model");
-const uuid = require("uuid/v1");
+const sequelize = require('../config/database');
+const ProjectModel = require('../models/project-model');
+const uuid = require('uuid/v1');
+const logger = require('../config/logger').logger;
 
 exports.findAll = (req, res) => {
-  UserModel.findAll()
-    .then(users => {
-      res.json(users);
-    })
-    .catch(e => {
-      res.status(500).send({
-        message: "Error retrieving all projects"
-      });
-    });
+	ProjectModel.findAll()
+		.then(projects => {
+			res.json(projects);
+		})
+		.catch(err => {
+			logger.error(err.message);
+			res.boom.internal();
+		});
 };
 
 exports.save = (req, res) => {
-  let badRequest = [];
+	let fields = [];
 
-  if (!req.body.name) {
-    badRequest.push({
-      column: "name",
-      message: "Name cannot be empty"
-    });
-  }
-  if (!req.body.order) {
-    badRequest.push({
-      column: "Order",
-      message: "Order cannot be empty"
-    });
-  }
+	if (!req.body.name) {
+		fields.push({
+			column: 'name',
+			message: 'Name cannot be empty'
+		});
+	}
+	if (!req.body.order) {
+		fields.push({
+			column: 'Order',
+			message: 'Order cannot be empty'
+		});
+	}
 
-  if (badRequest.length > 0) {
-    return res.status(400).send(badRequest);
-  }
+	if (fields.length > 0) {
+		return res.boom.badRequest('Bad Request', { info: fields });
+	}
 
-  sequelize.transaction(t => {
-    return UserModel.create(
-      {
-        id: uuid(),
-        name: req.body.name,
-        order: req.body.order
-      },
-      { transaction: t }
-    )
-      .then(user => {
-        res.status(201).send();
-      })
-      .catch(err => {
-          console.log(err)
-        res.status(500).send({
-          message: "Cannot save project"
-        });
-      });
-  });
+	sequelize.transaction(t => {
+		return ProjectModel.create(
+			{
+				id: uuid(),
+				name: req.body.name,
+				order: req.body.order
+			},
+			{
+				transaction: t
+			}
+		)
+			.then(project => {
+				res.status(201).send();
+			})
+			.catch(err => {
+				logger.error(err.message);
+				res.boom.internal();
+			});
+	});
+};
+
+exports.update = (req, res) => {
+	if (!req.params.id) {
+		res.status(400).send({
+			column: 'name',
+			message: 'Id cannot be empty'
+		});
+	}
+
+	ProjectModel.findOne({
+		where: { id: req.params.id }
+	}).then(project => {
+		logger.error(err.message);
+		res.json(project);
+	});
 };
