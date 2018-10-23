@@ -3,7 +3,7 @@ const logger = require("morgan");
 const bodyParser = require("body-parser");
 const PORT = process.env.PORT || 5000;
 const app = express();
-const ProjectRoutes = require("./routes/project-routes");
+const ProjectRoutes = require("./src/routes/project-routes");
 
 app.use(
   bodyParser.urlencoded({
