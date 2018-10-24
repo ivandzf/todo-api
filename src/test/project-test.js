@@ -5,7 +5,7 @@ const should = chai.should();
 
 chai.use(chaiHttp);
 
-const projectUrl = '/api/v1/project';
+const projectUrl = '/api/v1/projects';
 const projectDumy = {
 	name: 'test project'
 };
@@ -45,7 +45,7 @@ describe('Update project', () => {
 
 				chai
 					.request(server)
-					.put(
+					.post(
 						projectUrl + '/' + res.body.find(x => x.name == projectDumy.name).id
 					)
 					.send({ name: 'change name' })

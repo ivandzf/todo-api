@@ -92,7 +92,7 @@
       }
     },
     "/api/v1/project/{id}": {
-      "put": {
+      "post": {
         "summary": "Update one project",
         "tags": ["Project"],
         "description": "Update project name or closed status",

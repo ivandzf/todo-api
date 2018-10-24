@@ -50,6 +50,10 @@ exports.save = (req, res) => {
 };
 
 exports.update = (req, res) => {
+	if (!/^\d+$/.test(req.params.id)) {
+		return res.boom.badRequest('Id must valid');
+	}
+
 	ProjectModel.findOne({
 		where: { id: req.params.id },
 		rejectOnEmpty: true
@@ -79,15 +83,20 @@ exports.update = (req, res) => {
 };
 
 exports.delete = (req, res) => {
+	if (!/^\d+$/.test(req.params.id)) {
+		return res.boom.badRequest('Id must valid');
+	}
+
 	ProjectModel.findOne({
 		where: { id: req.params.id },
 		rejectOnEmpty: true
 	})
 		.then(project => {
 			sequelize.transaction(t => {
-				return ProjectModel.destroy(
-					{ where: { id: req.params.id }, transaction: t }
-				)
+				return ProjectModel.destroy({
+					where: { id: req.params.id },
+					transaction: t
+				})
 					.then(() => {
 						return res.status(204).send();
 					})
