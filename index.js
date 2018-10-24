@@ -4,11 +4,14 @@ const app = express();
 const ProjectRoutes = require('./src/routes/project-routes');
 const boom = require('express-boom');
 const { logger } = require('./src/config/logger');
-
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./src/config/swagger.json');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(boom());
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/api/v1', ProjectRoutes);
+app.disable('x-powered-by');
 
 app.use((req, res, next) => {
 	return res.boom.notFound('Route Not found');

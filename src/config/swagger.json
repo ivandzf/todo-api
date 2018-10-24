@@ -1,0 +1,247 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "TODO API",
+        "description": "TODO Rest API",
+        "license": {
+            "name": "ISC",
+            "url": "https://opensource.org/licenses/ISC"
+        }
+    },
+    "host": "todo-node-express.herokuapp.com",
+    "tags": [
+        {
+            "name": "Project",
+            "description": "API for project"
+        }
+    ],
+    "schemes": [
+        "https"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/api/v1/project": {
+            "get": {
+                "tags": [
+                    "Project"
+                ],
+                "description": "Get all project",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "schema": {
+                            "$ref": "#/definitions/Project"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request."
+                    },
+                    "401": {
+                        "description": "Unauthorize."
+                    },
+                    "403": {
+                        "description": "Forbidden Access."
+                    },
+                    "404": {
+                        "description": "Not found."
+                    },
+                    "405": {
+                        "description": "Method not allowed."
+                    },
+                    "500": {
+                        "description": "Internal server error."
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Project"
+                ],
+                "description": "Save project",
+                "parameters": [
+                    {
+                        "name": "project",
+                        "in": "body",
+                        "description": "Project name",
+                        "schema": {
+                            "properties": {
+                                "name": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "400": {
+                        "description": "Bad Request."
+                    },
+                    "404": {
+                        "description": "Not found."
+                    },
+                    "405": {
+                        "description": "Method not allowed."
+                    },
+                    "500": {
+                        "description": "Internal server error."
+                    }
+                }
+            }
+        },
+        "/api/v1/project/{id}": {
+            "put": {
+                "tags": [
+                    "Project"
+                ],
+                "description": "Update project",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "properties": {
+                                "type": "string"
+                            }
+                        },
+                        "description": "project id"
+                    },
+                    {
+                        "name": "project",
+                        "in": "body",
+                        "description": "Name or isClosed",
+                        "schema": {
+                            "properties": {
+                                "name": {
+                                    "type": "string"
+                                },
+                                "isClosed": {
+                                    "type": "boolean"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content",
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request."
+                    },
+                    "401": {
+                        "description": "Unauthorize."
+                    },
+                    "403": {
+                        "description": "Forbidden Access."
+                    },
+                    "404": {
+                        "description": "Not found."
+                    },
+                    "405": {
+                        "description": "Method not allowed."
+                    },
+                    "500": {
+                        "description": "Internal server error."
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Project"
+                ],
+                "description": "Delete project",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "id": {
+                                "type": "string"
+                            }
+                        },
+                        "description": "project id"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content",
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request."
+                    },
+                    "401": {
+                        "description": "Unauthorize."
+                    },
+                    "403": {
+                        "description": "Forbidden Access."
+                    },
+                    "404": {
+                        "description": "Not found."
+                    },
+                    "405": {
+                        "description": "Method not allowed."
+                    },
+                    "500": {
+                        "description": "Internal server error."
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Project": {
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "uniqueItems": true
+                },
+                "name": {
+                    "type": "string"
+                },
+                "order": {
+                    "type": "integer"
+                },
+                "isClose": {
+                    "type": "boolean"
+                }
+            }
+        }
+    }
+}
