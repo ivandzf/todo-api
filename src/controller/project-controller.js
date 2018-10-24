@@ -5,7 +5,17 @@ const uuid = require('uuid/v1');
 const logger = require('../config/logger').logger;
 
 exports.findAll = (req, res) => {
-	ProjectModel.findAll({ order: [['order', 'ASC']] })
+	ProjectModel.findAll({
+		attributes: [
+			'id',
+			'name',
+			'order',
+			'isClose',
+			'createdAt',
+			'updatedAt'
+		],
+		order: [['order', 'ASC']]
+	})
 		.then(projects => {
 			return res.json(projects);
 		})

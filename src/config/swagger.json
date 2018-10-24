@@ -20,7 +20,7 @@
   "consumes": ["application/json"],
   "produces": ["application/json"],
   "paths": {
-    "/api/v1/project": {
+    "/api/v1/projects": {
       "get": {
         "summary": "Get all project",
         "tags": ["Project"],
@@ -91,7 +91,7 @@
         }
       }
     },
-    "/api/v1/project/{id}": {
+    "/api/v1/projects/{id}": {
       "post": {
         "summary": "Update one project",
         "tags": ["Project"],

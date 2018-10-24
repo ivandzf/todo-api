@@ -17,12 +17,22 @@ const Project = sequelize.define(
 		isClose: {
 			type: Sequelize.BOOLEAN,
 			field: 'isclose'
+		},
+		updatedAt: {
+			type: Sequelize.DATE,
+			field: 'updated_at',
+			defaultValue: Sequelize.NOW
+		},
+		createdAt: {
+			type: Sequelize.DATE,
+			field: 'created_at',
+			defaultValue: Sequelize.NOW
 		}
 	},
 	{
 		tableName: 'project',
 		freezeTableName: true,
-		timestamps: false,
+		timestamps: true,
 	}
 );
 
