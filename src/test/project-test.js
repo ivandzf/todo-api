@@ -6,6 +6,22 @@ const should = chai.should();
 chai.use(chaiHttp);
 
 const projectUrl = '/api/v1/project';
+const projectDumy = {
+	name: 'test project',
+	order: 1
+};
+
+describe('Save project', () => {
+	it('return must create one project', done => {
+		chai
+			.request(server)
+			.post(projectDumy)
+			.end((err, res) => {
+				res.should.have.status(201);
+				done();
+			});
+	});
+});
 
 describe('Get all project', () => {
 	it('return must all project', done => {

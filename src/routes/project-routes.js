@@ -7,6 +7,8 @@ router.get(path, ProjectController.findAll);
 
 router.post(path, ProjectController.save);
 
-router.put(path+'/:id', ProjectController.update);
+router.put(path + '/:id', ProjectController.update);
+
+router.delete(path + '/:id', ProjectController.delete);
 
 module.exports = router;

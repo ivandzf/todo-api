@@ -1,13 +1,15 @@
+const config = require('../../config');
 const Sequelize = require('sequelize');
 const sequelize = new Sequelize(
-	process.env.NODE_ENV == 'production' ? 'kqwjvoyv' : 'todos',
-	process.env.NODE_ENV == 'production' ? 'kqwjvoyv' : '',
-	process.env.NODE_ENV == 'production' ? 'yMsmCDMj4Lx8aD80psg215kgpdGpcRbp' : '',
+	config.get('db.name'),
+	config.get('db.username'),
+	config.get('db.password'),
 	{
-		host: process.env.NODE_ENV == 'production' ? 'elmer.db.elephantsql.com' : 'localhost',
+		host: config.get('db.host'),
 		dialect: 'postgres',
 		operatorsAliases: false,
 		logging: false,
+		omitNull: true,
 		define: {
 			rejectOnEmpty: true
 		},

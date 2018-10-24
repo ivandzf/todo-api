@@ -5,13 +5,18 @@ const Project = sequelize.define(
 	{
 		id: {
 			primaryKey: true,
-			type: Sequelize.UUID
+			type: Sequelize.INTEGER,
+			autoIncrement: true
 		},
 		name: {
 			type: Sequelize.STRING
 		},
 		order: {
 			type: Sequelize.INTEGER
+		},
+		isClose: {
+			type: Sequelize.BOOLEAN,
+			field: 'isclose'
 		}
 	},
 	{
