@@ -5,7 +5,7 @@ humanFormat = (date) => {
 	return moment
 		.utc(date)
 		.tz(timezone)
-		.format('DD/MM/YYYY hh:mm:ss');
+		.format('DD/MM/YYYY HH:mm:ss');
 };
 
 module.exports = { timezone, humanFormat };

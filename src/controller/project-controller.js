@@ -2,14 +2,41 @@ const sequelize = require('../config/database');
 const Sequelize = require('sequelize');
 const ProjectModel = require('../models/project-model');
 const logger = require('../config/logger').logger;
+const routes = require('../config/routes');
 
-exports.findAll = (req, res) => {
-	ProjectModel.findAll({
+exports.findPagination = (req, res) => {
+	const limit = 10;
+	let offset = req.query.page == undefined ? 0 : (req.query.page - 1) * limit;
+	if (!/^\d+$/.test(offset)) {
+		return res.boom.badRequest('Page is not valid').send;
+	}
+
+	ProjectModel.findAndCountAll({
 		attributes: ['id', 'name', 'order', 'isClose', 'createdAt', 'updatedAt'],
-		order: [['order', 'ASC']]
+		order: [['order', 'ASC']],
+		limit: limit,
+		offset: offset
 	})
 		.then(projects => {
-			return res.json(projects);
+			return res.json({
+				data: projects.rows,
+				meta: {
+					current:
+						offset == 0
+							? routes.projects + '?page=1'
+							: routes.projects + '?page=' + req.query.page,
+					prev:
+						offset == 0
+							? ''
+							: routes.projects + '?page=' + (parseInt(req.query.page) - 1),
+					next:
+						offset + limit > projects.count
+							? ''
+							: routes.projects + '?page=' + (offset == 0
+								? 2
+								: parseInt(req.query.page) + 1)
+				}
+			});
 		})
 		.catch(Sequelize.EmptyResultError, err => {
 			return res.json([]);
@@ -44,7 +71,7 @@ exports.save = (req, res) => {
 				{ transaction: t }
 			)
 				.then(project => {
-					return res.status(201).send();
+					return res.status(201).json(project);
 				})
 				.catch(err => {
 					logger.error(err);

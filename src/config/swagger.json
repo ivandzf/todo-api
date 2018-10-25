@@ -9,28 +9,58 @@
       "url": "https://opensource.org/licenses/ISC"
     }
   },
-  "host": "todo-node-express.herokuapp.com",
+  "host": "localhost:5000",
   "tags": [
     {
       "name": "Project",
       "description": "API for project"
     }
   ],
-  "schemes": ["https"],
+  "schemes": ["http"],
   "consumes": ["application/json"],
   "produces": ["application/json"],
   "paths": {
     "/api/v1/projects": {
       "get": {
-        "summary": "Get all project",
+        "summary": "Get projects based on pagination",
         "tags": ["Project"],
         "description": "Get all project",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number",
+            "required": true,
+            "schema": {
+              "properties": {
+                "type": "string"
+              }
+            }
+          }
+        ],
         "produces": ["application/json"],
         "responses": {
           "200": {
             "description": "Ok",
             "schema": {
-              "$ref": "#/definitions/Project"
+              "properties": {
+                "data": {
+                  "$ref": "#/definitions/Project"
+                },
+                "meta": {
+                  "properties": {
+                    "current": {
+                      "type": "string"
+                    },
+                    "prev": {
+                      "type": "string"
+                    },
+                    "next": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
             }
           },
           "400": {
@@ -74,7 +104,10 @@
         "produces": ["application/json"],
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/Project"
+            }
           },
           "400": {
             "description": "Bad Request."
@@ -127,14 +160,7 @@
         "produces": ["application/json"],
         "responses": {
           "204": {
-            "description": "No Content",
-            "schema": {
-              "properties": {
-                "message": {
-                  "type": "string"
-                }
-              }
-            }
+            "description": "No Content"
           },
           "400": {
             "description": "Bad Request."
@@ -176,14 +202,7 @@
         "produces": ["application/json"],
         "responses": {
           "204": {
-            "description": "No Content",
-            "schema": {
-              "properties": {
-                "message": {
-                  "type": "string"
-                }
-              }
-            }
+            "description": "No Content"
           },
           "400": {
             "description": "Bad Request."
@@ -224,10 +243,10 @@
           "type": "boolean"
         },
         "createdAt": {
-            "type": "string"
+          "type": "string"
         },
         "updatedAt": {
-            "type": "string"
+          "type": "string"
         }
       }
     }

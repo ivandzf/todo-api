@@ -6,7 +6,8 @@ const should = chai.should();
 chai.use(chaiHttp);
 
 const projectUrl = '/api/v1/projects';
-const projectDumy = {
+let idDummy;
+const projectDummy = {
 	name: 'test project'
 };
 
@@ -15,16 +16,17 @@ describe('Save project', () => {
 		chai
 			.request(server)
 			.post(projectUrl)
-			.send(projectDumy)
+			.send(projectDummy)
 			.end((err, res) => {
 				res.should.have.status(201);
+				idDummy = res.body.id;
 				done();
 			});
 	});
 });
 
-describe('Get all project', () => {
-	it('return must all project', done => {
+describe('Get projects', () => {
+	it('return must data projects', done => {
 		chai
 			.request(server)
 			.get(projectUrl)
@@ -39,20 +41,11 @@ describe('Update project', () => {
 	it('return must create update name project', done => {
 		chai
 			.request(server)
-			.get(projectUrl)
+			.post(projectUrl + '/' + idDummy)
+			.send({ name: 'change name' })
 			.end((err, res) => {
-				res.should.have.status(200);
-
-				chai
-					.request(server)
-					.post(
-						projectUrl + '/' + res.body.find(x => x.name == projectDumy.name).id
-					)
-					.send({ name: 'change name' })
-					.end((err, res) => {
-						res.should.have.status(204);
-						done();
-					});
+				res.should.have.status(204);
+				done();
 			});
 	});
 });
@@ -61,20 +54,11 @@ describe('Delete project', () => {
 	it('return must delete one project', done => {
 		chai
 			.request(server)
-			.get(projectUrl)
+			.delete(projectUrl + '/' + idDummy)
+			.send()
 			.end((err, res) => {
-				res.should.have.status(200);
-
-				chai
-					.request(server)
-					.delete(
-						projectUrl + '/' + res.body.find(x => x.name == 'change name').id
-					)
-					.send()
-					.end((err, res) => {
-						res.should.have.status(204);
-						done();
-					});
+				res.should.have.status(204);
+				done();
 			});
 	});
 });

@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const ProjectController = require('../controller/project-controller');
-const path = '/projects';
+const routes = require('../config/routes');
 
-router.get(path, ProjectController.findAll);
+router.get(routes.projects, ProjectController.findPagination);
 
-router.post(path, ProjectController.save);
+router.post(routes.projects, ProjectController.save);
 
-router.post(path + '/:id', ProjectController.update);
+router.post(routes.projects + '/:id', ProjectController.update);
 
-router.delete(path + '/:id', ProjectController.delete);
+router.delete(routes.projects + '/:id', ProjectController.delete);
 
 module.exports = router;
