@@ -9,14 +9,14 @@
       "url": "https://opensource.org/licenses/ISC"
     }
   },
-  "host": "localhost:5000",
+  "host": "todo-node-express.herokuapp.com",
   "tags": [
     {
       "name": "Project",
       "description": "API for project"
     }
   ],
-  "schemes": ["http"],
+  "schemes": ["https"],
   "consumes": ["application/json"],
   "produces": ["application/json"],
   "paths": {
