@@ -1,5 +1,6 @@
 const config = require('../../config');
 const Sequelize = require('sequelize');
+const dateFormat = require('../helper/date-format');
 const sequelize = new Sequelize(
 	config.get('db.name'),
 	config.get('db.username'),
@@ -10,6 +11,12 @@ const sequelize = new Sequelize(
 		operatorsAliases: false,
 		logging: false,
 		omitNull: true,
+		dialectOptions: {
+			useUTC: false,
+			dateStrings: true,
+			typeCast: true
+		},
+		timezone: dateFormat.timezone,
 		define: {
 			rejectOnEmpty: true
 		},
@@ -18,7 +25,8 @@ const sequelize = new Sequelize(
 			min: 0,
 			acquire: 30000,
 			idle: 10000
-		}
+		},
+		benchmark: true
 	}
 );
 

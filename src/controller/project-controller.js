@@ -1,19 +1,11 @@
 const sequelize = require('../config/database');
 const Sequelize = require('sequelize');
 const ProjectModel = require('../models/project-model');
-const uuid = require('uuid/v1');
 const logger = require('../config/logger').logger;
 
 exports.findAll = (req, res) => {
 	ProjectModel.findAll({
-		attributes: [
-			'id',
-			'name',
-			'order',
-			'isClose',
-			'createdAt',
-			'updatedAt'
-		],
+		attributes: ['id', 'name', 'order', 'isClose', 'createdAt', 'updatedAt'],
 		order: [['order', 'ASC']]
 	})
 		.then(projects => {
@@ -45,7 +37,10 @@ exports.save = (req, res) => {
 	ProjectModel.count().then(count => {
 		sequelize.transaction(t => {
 			return ProjectModel.create(
-				{ name: req.body.name, order: count + 1 },
+				{
+					name: req.body.name,
+					order: count + 1
+				},
 				{ transaction: t }
 			)
 				.then(project => {

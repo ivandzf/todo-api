@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../config/database');
+const dateFormat = require('../helper/date-format');
 const Project = sequelize.define(
 	'project',
 	{
@@ -21,18 +22,24 @@ const Project = sequelize.define(
 		updatedAt: {
 			type: Sequelize.DATE,
 			field: 'updated_at',
-			defaultValue: Sequelize.NOW
+			get: function () {
+				const date = this.getDataValue('updatedAt');
+				return dateFormat.humanFormat(date);
+			}
 		},
 		createdAt: {
 			type: Sequelize.DATE,
 			field: 'created_at',
-			defaultValue: Sequelize.NOW
+			get: function() {
+				const date = this.getDataValue('createdAt');
+				return dateFormat.humanFormat(date);
+			}
 		}
 	},
 	{
 		tableName: 'project',
 		freezeTableName: true,
-		timestamps: true,
+		timestamps: true
 	}
 );
 

@@ -222,6 +222,12 @@
         },
         "isClose": {
           "type": "boolean"
+        },
+        "createdAt": {
+            "type": "string"
+        },
+        "updatedAt": {
+            "type": "string"
         }
       }
     }
