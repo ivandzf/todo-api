@@ -1,8 +1,8 @@
 {
-    "db": {
-        "host": "localhost",
-        "name": "todos",
-        "username": "",
-        "password": ""
-    }
+  "db": {
+    "host": "localhost",
+    "name": "todos",
+    "username": "",
+    "password": ""
+  }
 }
