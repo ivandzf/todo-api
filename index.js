@@ -14,12 +14,12 @@ app.use(ProjectRoutes);
 app.disable('x-powered-by');
 
 app.use((req, res, next) => {
-  return res.boom.notFound('Route Not found');
+    return res.boom.notFound('Route Not found');
 });
 
 app.use(function(err, req, res, next) {
-  logger.error(err.message);
-  return res.boom.internal();
+    logger.error(err.message);
+    return res.boom.internal();
 });
 
 const PORT = process.env.PORT || 5000;

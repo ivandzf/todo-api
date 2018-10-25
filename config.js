@@ -1,38 +1,38 @@
 const convict = require('convict');
 
 const config = convict({
-  env: {
-    doc: 'The application environment.',
-    format: ['production', 'development', 'test'],
-    default: 'development',
-    env: 'NODE_ENV'
-  },
-  db: {
-    host: {
-      doc: 'Database host name/IP',
-      format: String,
-      default: 'localhost',
-      env: 'DB_HOST'
+    env: {
+        doc: 'The application environment.',
+        format: ['production', 'development', 'test'],
+        default: 'development',
+        env: 'NODE_ENV'
     },
-    name: {
-      doc: 'Database name',
-      format: String,
-      default: 'todos',
-      env: 'DB_NAME'
-    },
-    username: {
-      doc: 'Database username',
-      format: String,
-      default: '',
-      env: 'DB_USERNAME'
-    },
-    password: {
-      doc: 'Database password',
-      format: String,
-      default: '',
-      env: 'DB_PASSWORD'
+    db: {
+        host: {
+            doc: 'Database host name/IP',
+            format: String,
+            default: 'localhost',
+            env: 'DB_HOST'
+        },
+        name: {
+            doc: 'Database name',
+            format: String,
+            default: 'todos',
+            env: 'DB_NAME'
+        },
+        username: {
+            doc: 'Database username',
+            format: String,
+            default: '',
+            env: 'DB_USERNAME'
+        },
+        password: {
+            doc: 'Database password',
+            format: String,
+            default: '',
+            env: 'DB_PASSWORD'
+        }
     }
-  }
 });
 
 const env = config.get('env');
