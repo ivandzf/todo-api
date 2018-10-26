@@ -16,7 +16,7 @@ exports.findPagination = (req, res) => {
             'id',
             'name',
             'order',
-            'isClose',
+            'isClosed',
             'createdAt',
             'updatedAt'
         ],
@@ -102,7 +102,7 @@ exports.update = (req, res) => {
         .then(project => {
             sequelize.transaction(t => {
                 return ProjectModel.update(
-                    { name: req.body.name, isClose: req.body.isClose },
+                    { name: req.body.name, isClosed: req.body.isClosed },
                     { where: { id: req.params.id }, transaction: t }
                 )
                     .then(() => {

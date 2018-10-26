@@ -239,7 +239,7 @@
         "order": {
           "type": "integer"
         },
-        "isClose": {
+        "isClosed": {
           "type": "boolean"
         },
         "createdAt": {

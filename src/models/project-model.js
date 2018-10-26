@@ -15,9 +15,9 @@ const Project = sequelize.define(
         order: {
             type: Sequelize.INTEGER
         },
-        isClose: {
+        isClosed: {
             type: Sequelize.BOOLEAN,
-            field: 'isclose'
+            field: 'isclosed'
         },
         updatedAt: {
             type: Sequelize.DATE,

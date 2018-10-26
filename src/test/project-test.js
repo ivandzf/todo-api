@@ -38,7 +38,7 @@ describe('Get projects', () => {
 });
 
 describe('Update project', () => {
-    it('return must create update name project', done => {
+    it('return must update project name', done => {
         chai
             .request(server)
             .post(projectUrl + '/' + idDummy)
