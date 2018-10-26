@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const ProjectController = require('../controller/project-controller');
-const routes = require('../config/routes');
+const projectsPath = '/api/v1/projects';
 
-router.get(routes.projects, ProjectController.findPagination);
+router.get(projectsPath, ProjectController.findPagination);
 
-router.post(routes.projects, ProjectController.save);
+router.post(projectsPath, ProjectController.save);
 
-router.post(routes.projects + '/:id', ProjectController.update);
+router.post(projectsPath + '/:id', ProjectController.update);
 
-router.delete(routes.projects + '/:id', ProjectController.delete);
+router.delete(projectsPath + '/:id', ProjectController.delete);
 
 module.exports = router;

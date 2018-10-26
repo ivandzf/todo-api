@@ -2,7 +2,6 @@ const sequelize = require('../config/database');
 const Sequelize = require('sequelize');
 const ProjectModel = require('../models/project-model');
 const logger = require('../config/logger').logger;
-const routes = require('../config/routes');
 
 exports.findPagination = (req, res) => {
     const limit = 10;
@@ -28,21 +27,15 @@ exports.findPagination = (req, res) => {
             return res.json({
                 data: projects.rows,
                 meta: {
-                    current:
-                        offset === 0
-                            ? routes.projects + '?page=1'
-                            : routes.projects + '?page=' + req.query.page,
+                    current: offset === 0 ? 'page=1' : 'page=' + req.query.page,
                     prev:
                         offset === 0
                             ? ''
-                            : routes.projects +
-                              '?page=' +
-                              (parseInt(req.query.page) - 1),
+                            : 'page=' + (parseInt(req.query.page) - 1),
                     next:
                         offset + limit > projects.count
                             ? ''
-                            : routes.projects +
-                              '?page=' +
+                            : 'page=' +
                               (offset === 0 ? 2 : parseInt(req.query.page) + 1)
                 }
             });
