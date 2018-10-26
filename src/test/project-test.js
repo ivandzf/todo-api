@@ -13,8 +13,7 @@ const projectDummy = {
 
 describe('Save project', () => {
     it('return must create one project', done => {
-        chai
-            .request(server)
+        chai.request(server)
             .post(projectUrl)
             .send(projectDummy)
             .end((err, res) => {
@@ -25,11 +24,21 @@ describe('Save project', () => {
     });
 });
 
-describe('Get projects', () => {
+describe('Get projects pagination', () => {
     it('return must data projects', done => {
-        chai
-            .request(server)
+        chai.request(server)
             .get(projectUrl)
+            .end((err, res) => {
+                res.should.have.status(200);
+                done();
+            });
+    });
+});
+
+describe('Get one projects', () => {
+    it('return must data projects', done => {
+        chai.request(server)
+            .get(projectUrl + '/' + idDummy)
             .end((err, res) => {
                 res.should.have.status(200);
                 done();
@@ -39,12 +48,11 @@ describe('Get projects', () => {
 
 describe('Update project', () => {
     it('return must update project name', done => {
-        chai
-            .request(server)
+        chai.request(server)
             .post(projectUrl + '/' + idDummy)
             .send({ name: 'change name' })
             .end((err, res) => {
-                res.should.have.status(204);
+                res.should.have.status(200);
                 done();
             });
     });
@@ -52,12 +60,11 @@ describe('Update project', () => {
 
 describe('Delete project', () => {
     it('return must delete one project', done => {
-        chai
-            .request(server)
+        chai.request(server)
             .delete(projectUrl + '/' + idDummy)
             .send()
             .end((err, res) => {
-                res.should.have.status(204);
+                res.should.have.status(200);
                 done();
             });
     });

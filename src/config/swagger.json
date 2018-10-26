@@ -204,8 +204,11 @@
         ],
         "produces": ["application/json"],
         "responses": {
-          "204": {
-            "description": "No Content"
+          "200": {
+            "description": "Ok",
+            "schema": {
+                "$ref": "#/definitions/Project"
+            }
           },
           "400": {
             "description": "Bad Request."
@@ -246,8 +249,11 @@
         ],
         "produces": ["application/json"],
         "responses": {
-          "204": {
-            "description": "No Content"
+          "200": {
+            "description": "No Content",
+            "schema": {
+                "$ref": "#/definitions/Project"
+            }
           },
           "400": {
             "description": "Bad Request."

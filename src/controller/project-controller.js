@@ -114,10 +114,15 @@ exports.update = (req, res) => {
             sequelize.transaction(t => {
                 return ProjectModel.update(
                     { name: req.body.name, isClosed: req.body.isClosed },
-                    { where: { id: req.params.id }, transaction: t }
+                    {
+                        where: { id: req.params.id },
+                        plain: true,
+                        returning: true,
+                        transaction: t
+                    }
                 )
-                    .then(() => {
-                        return res.status(204).send();
+                    .then(p => {
+                        return res.json(p[1]);
                     })
                     .catch(err => {
                         logger.error(err);
@@ -150,7 +155,7 @@ exports.delete = (req, res) => {
                     transaction: t
                 })
                     .then(() => {
-                        return res.status(204).send();
+                        return res.json(project);
                     })
                     .catch(err => {
                         logger.error(err);
