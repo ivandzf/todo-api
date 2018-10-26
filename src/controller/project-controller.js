@@ -49,6 +49,24 @@ exports.findPagination = (req, res) => {
         });
 };
 
+exports.findById = (req, res) => {
+    if (!/^\d+$/.test(req.params.id)) {
+        return res.boom.badRequest('Id must valid');
+    }
+
+    ProjectModel.findByPk(req.params.id)
+        .then(project => {
+            return res.json(project);
+        })
+        .catch(Sequelize.EmptyResultError, err => {
+            return res.boom.notFound('Resource Not Found');
+        })
+        .catch(err => {
+            logger.error(err);
+            return res.boom.internal();
+        });
+};
+
 exports.save = (req, res) => {
     let fields = [];
 

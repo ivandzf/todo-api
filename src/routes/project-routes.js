@@ -5,6 +5,8 @@ const projectsPath = '/api/v1/projects';
 
 router.get(projectsPath, ProjectController.findPagination);
 
+router.get(projectsPath + '/:id', ProjectController.findById);
+
 router.post(projectsPath, ProjectController.save);
 
 router.post(projectsPath + '/:id', ProjectController.update);
