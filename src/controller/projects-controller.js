@@ -7,7 +7,7 @@ exports.findPagination = (req, res) => {
     const limit = 10;
     let offset = req.query.page == undefined ? 0 : (req.query.page - 1) * limit;
     if (!/^\d+$/.test(offset)) {
-        res.boom.badRequest('Page is not valid').send;
+        return res.boom.badRequest('Page is not valid').send;
     }
 
     ProjectModel.findAndCountAll({
@@ -27,34 +27,32 @@ exports.findPagination = (req, res) => {
             return res.json({
                 data: projects.rows,
                 meta: {
+                    totalRow: projects.count,
                     current: offset === 0 ? 'page=1' : 'page=' + req.query.page,
                     prev:
                         offset === 0
                             ? ''
-                            : 'page='.concat(parseInt(req.query.page) - 1),
+                            : 'page=' + (parseInt(req.query.page) - 1),
                     next:
                         offset + limit > projects.count
                             ? ''
-                            : 'page='.concat(
-                                offset === 0
-                                    ? 2
-                                    : parseInt(req.query.page) + 1
-                            )
+                            : 'page=' +
+                              (offset === 0 ? 2 : parseInt(req.query.page) + 1)
                 }
             });
         })
         .catch(Sequelize.EmptyResultError, err => {
-            res.json([]);
+            return res.json([]);
         })
         .catch(err => {
             logger.error(err);
-            res.boom.internal();
+            return res.boom.internal();
         });
 };
 
 exports.findById = (req, res) => {
     if (!/^\d+$/.test(req.params.id)) {
-        res.boom.badRequest('Id must valid');
+        return res.boom.badRequest('Id must valid');
     }
 
     ProjectModel.findByPk(req.params.id)
@@ -62,11 +60,11 @@ exports.findById = (req, res) => {
             return res.json(project);
         })
         .catch(Sequelize.EmptyResultError, err => {
-            res.boom.notFound('Resource Not Found');
+            return res.boom.notFound('Resource Not Found');
         })
         .catch(err => {
             logger.error(err);
-            res.boom.internal();
+            return res.boom.internal();
         });
 };
 
@@ -81,7 +79,7 @@ exports.save = (req, res) => {
     }
 
     if (fields.length > 0) {
-        res.boom.badRequest('Bad Request', { attribute: fields });
+        return res.boom.badRequest('Bad Request', { attribute: fields });
     }
 
     ProjectModel.count().then(count => {
@@ -94,11 +92,11 @@ exports.save = (req, res) => {
                 { transaction: t }
             )
                 .then(project => {
-                    res.status(201).json(project);
+                    return res.status(201).json(project);
                 })
                 .catch(err => {
                     logger.error(err);
-                    res.boom.internal();
+                    return res.boom.internal();
                 });
         });
     });
@@ -106,7 +104,7 @@ exports.save = (req, res) => {
 
 exports.update = (req, res) => {
     if (!/^\d+$/.test(req.params.id)) {
-        res.boom.badRequest('Id must valid');
+        return res.boom.badRequest('Id must valid');
     }
 
     ProjectModel.findOne({
@@ -125,26 +123,26 @@ exports.update = (req, res) => {
                     }
                 )
                     .then(p => {
-                        res.json(p[1]);
+                        return res.json(p[1]);
                     })
                     .catch(err => {
                         logger.error(err);
-                        res.boom.internal();
+                        return res.boom.internal();
                     });
             });
         })
         .catch(Sequelize.EmptyResultError, err => {
-            res.boom.notFound('Resource Not Found');
+            return res.boom.notFound('Resource Not Found');
         })
         .catch(err => {
             logger.error(err);
-            res.boom.internal();
+            return res.boom.internal();
         });
 };
 
 exports.delete = (req, res) => {
     if (!/^\d+$/.test(req.params.id)) {
-        res.boom.badRequest('Id must valid');
+        return res.boom.badRequest('Id must valid');
     }
 
     ProjectModel.findOne({
@@ -162,15 +160,15 @@ exports.delete = (req, res) => {
                     })
                     .catch(err => {
                         logger.error(err);
-                        res.boom.internal();
+                        return res.boom.internal();
                     });
             });
         })
         .catch(Sequelize.EmptyResultError, err => {
-            res.boom.notFound('Resource Not Found');
+            return res.boom.notFound('Resource Not Found');
         })
         .catch(err => {
             logger.error(err);
-            res.boom.internal();
+            return res.boom.internal();
         });
 };

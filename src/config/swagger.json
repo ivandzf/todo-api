@@ -49,6 +49,9 @@
                 },
                 "meta": {
                   "properties": {
+                    "totalRow": {
+                      "type": "string"
+                    },
                     "current": {
                       "type": "string"
                     },
