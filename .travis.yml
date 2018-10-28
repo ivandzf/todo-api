@@ -1,8 +1,8 @@
 language: node_js
 node_js: '9'
 after_success:
-  - npm run coverage
-  - bash <(curl -s https://codecov.io/bash) -f coverage/coverage-final.json
+- npm run coverage
+- bash <(curl -s https://codecov.io/bash) -f coverage/coverage-final.json
 deploy:
   provider: heroku
   api_key:
@@ -10,3 +10,6 @@ deploy:
   app: todo-node-express
   on:
     repo: ivandzf/todo-api
+notifications:
+  slack:
+    secure: Rk0+55I63VaFmq/8mmtbDhZyClJ5diLZLS4xxMNfRY4b2JTa+xfvymBizeUuBnSmcTFVpeHIM98dvh2NdTk4PW+ZTFNXfkHEA1/mOSlogqENB5sN5+QIZDD1xk4eol2ulLlEgzxuunHL/qFhzSBWXX/CVb4b7cB6fscnFtwZq+ETDLoKg+coAUTdEVc9bGQl4DjjBiY49qSOdXmiFeyJzYOwyeeBteQoukh7Z7Vt8wxhFDq7EMg9U+9tNSPgOvjTV+Pw3S4r0vQHZAgCHowaLAcyzgGrrxxXwNsGN0StHRXUd6eoXD2jvNbLRFbn1sHqdPRpOjU+kcb3qDk8fiftlsjmsr2lg80T+4KpFfTHrGJyQxz0Pk/LWqy2dX5uQU9qB+fxB3gaIIrL969JIRQsS1GGLHVbOEjQMs6wZQBm+wFaNu+h25L3RW8Cf+Yxm4VhwfpJxpX8N5WeqHsvjKa/hC3v+wwDf8R5ZV0l4exT5PPOabyfJ6jnI6nasZf1nt+kfw5mPW61Jo20B4O/ziPzk6o1LyIrY+WhD3CuxH0wscOcja8Eea+pZHh9GL90wkpHZyhs7dqQO46CSzy++XxYivz7eabDr8Gnd9jSZXULdGuTB7sPuq5eaCtaspBIt3fd4Qvn3/z4O6wn9zExE4XYM9r9HBDeTRKNIP3TVXBZDE4=
