@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-const ProjectRoutes = require('./src/routes/project-routes');
+const ProjectRoutes = require('./src/routes/projects-routes');
 const boom = require('express-boom');
 const { logger } = require('./src/config/logger');
 const swaggerUi = require('swagger-ui-express');

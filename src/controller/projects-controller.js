@@ -1,6 +1,6 @@
 const sequelize = require('../config/database');
 const Sequelize = require('sequelize');
-const ProjectModel = require('../models/project-model');
+const ProjectModel = require('../models/projects-model');
 const logger = require('../config/logger').logger;
 
 exports.findPagination = (req, res) => {
