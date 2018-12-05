@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../config/database');
 const dateFormat = require('../helper/date-format');
-const Project = sequelize.define(
-    'project',
+const Projects = sequelize.define(
+    'projects',
     {
         id: {
             primaryKey: true,
@@ -12,8 +12,9 @@ const Project = sequelize.define(
         name: {
             type: Sequelize.STRING
         },
-        order: {
-            type: Sequelize.INTEGER
+        position: {
+            type: Sequelize.INTEGER,
+            field: 'position'
         },
         isClosed: {
             type: Sequelize.BOOLEAN,
@@ -37,10 +38,10 @@ const Project = sequelize.define(
         }
     },
     {
-        tableName: 'project',
+        tableName: 'projects',
         freezeTableName: true,
         timestamps: true
     }
 );
 
-module.exports = Project;
+module.exports = Projects;
