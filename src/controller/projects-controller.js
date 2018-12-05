@@ -78,6 +78,13 @@ exports.save = (req, res) => {
         });
     }
 
+    if (!req.body.position) {
+        fields.push({
+            column: 'position',
+            message: 'Position cannot be empty'
+        });
+    }
+
     if (fields.length > 0) {
         return res.boom.badRequest('Bad Request', { attribute: fields });
     }
