@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const sequelize = require('../config/database');
 const dateFormat = require('../helper/date-format');
 const Projects = sequelize.define(
-    'projects',
+    'project',
     {
         id: {
             primaryKey: true,
@@ -38,7 +38,7 @@ const Projects = sequelize.define(
         }
     },
     {
-        tableName: 'projects',
+        tableName: 'project',
         freezeTableName: true,
         timestamps: true
     }
