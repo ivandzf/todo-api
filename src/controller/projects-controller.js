@@ -23,18 +23,18 @@ exports.findPagination = (req, res) => {
         limit: limit,
         offset: offset
     })
-        .then(projects => {
+        .then(project => {
             return res.json({
-                data: projects.rows,
+                data: project.rows,
                 meta: {
-                    totalRow: projects.count,
+                    totalRow: project.count,
                     current: offset === 0 ? 'page=1' : 'page=' + req.query.page,
                     prev:
                         offset === 0
                             ? ''
                             : 'page=' + (parseInt(req.query.page) - 1),
                     next:
-                        offset + limit > projects.count
+                        offset + limit > project.count
                             ? ''
                             : 'page=' +
                               (offset === 0 ? 2 : parseInt(req.query.page) + 1)
