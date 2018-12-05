@@ -4,8 +4,8 @@
   "description": "todo rest api",
   "main": "index.js",
   "scripts": {
-    "test": "nyc --reporter=html --reporter=text mocha ./src/test/ --timeout 1200000 --exit",
-    "start": "node index.js",
+    "test": "NODE_ENV=test nyc --reporter=html --reporter=text mocha ./src/test/ --timeout 1200000 --exit",
+    "start": "NODE_ENV=production node index.js",
     "coverage": "npm run test && nyc report --reporter=json && codecov -f coverage/coverage-final.json"
   },
   "repository": {
