@@ -8,7 +8,8 @@ chai.use(chaiHttp);
 const projectUrl = '/api/v1/projects';
 let idDummy;
 const projectDummy = {
-    name: 'test project'
+    name: 'test project',
+    position: 1
 };
 
 describe('Save project', () => {
