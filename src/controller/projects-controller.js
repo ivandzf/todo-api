@@ -1,6 +1,6 @@
 const sequelize = require('../config/database');
 const Sequelize = require('sequelize');
-const ProjectModel = require('../models/projects-model');
+const Projects = require('../models/projects-model');
 const logger = require('../config/logger').logger;
 
 exports.findPagination = (req, res) => {
@@ -10,16 +10,16 @@ exports.findPagination = (req, res) => {
         return res.boom.badRequest('Page is not valid').send;
     }
 
-    ProjectModel.findAndCountAll({
+    Projects.findAndCountAll({
         attributes: [
             'id',
             'name',
-            'order',
+            'position',
             'isClosed',
             'createdAt',
             'updatedAt'
         ],
-        order: [['order', 'ASC']],
+        order: [['position', 'ASC']],
         limit: limit,
         offset: offset
     })
@@ -55,7 +55,7 @@ exports.findById = (req, res) => {
         return res.boom.badRequest('Id must valid');
     }
 
-    ProjectModel.findByPk(req.params.id)
+    Projects.findByPk(req.params.id)
         .then(project => {
             return res.json(project);
         })
@@ -82,12 +82,12 @@ exports.save = (req, res) => {
         return res.boom.badRequest('Bad Request', { attribute: fields });
     }
 
-    ProjectModel.count().then(count => {
+    Projects.count().then(count => {
         sequelize.transaction(t => {
-            return ProjectModel.create(
+            return Projects.create(
                 {
                     name: req.body.name,
-                    order: count + 1
+                    position: count + 1
                 },
                 { transaction: t }
             )
@@ -107,13 +107,13 @@ exports.update = (req, res) => {
         return res.boom.badRequest('Id must valid');
     }
 
-    ProjectModel.findOne({
+    Projects.findOne({
         where: { id: req.params.id },
         rejectOnEmpty: true
     })
         .then(project => {
             sequelize.transaction(t => {
-                return ProjectModel.update(
+                return Projects.update(
                     { name: req.body.name, isClosed: req.body.isClosed },
                     {
                         where: { id: req.params.id },
@@ -145,13 +145,13 @@ exports.delete = (req, res) => {
         return res.boom.badRequest('Id must valid');
     }
 
-    ProjectModel.findOne({
+    Projects.findOne({
         where: { id: req.params.id },
         rejectOnEmpty: true
     })
         .then(project => {
             sequelize.transaction(t => {
-                return ProjectModel.destroy({
+                return Projects.destroy({
                     where: { id: req.params.id },
                     transaction: t
                 })
